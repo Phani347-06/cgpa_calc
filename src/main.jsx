@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { CgpaPredictor } from './components/CgpaPredictor.jsx';
 import { GpaGrowthGraph } from './components/GpaGrowthGraph.jsx';
+import { Analytics } from '@vercel/analytics/react';
 import './styles.css';
 
 const GRADES = [
@@ -661,6 +662,7 @@ function App() {
           <span>SGPA and CGPA are weighted by credits.</span>
         </footer>
       </main>
+      <Analytics />
     </>
   );
 }
