@@ -666,7 +666,7 @@ function App() {
         </footer>
       </main>
       <Analytics />
-      <SpeedInsights />
+      <SpeedInsights debug={true} />
     </>
   );
 }
