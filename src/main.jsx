@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { CgpaPredictor } from './components/CgpaPredictor.jsx';
 import { GpaGrowthGraph } from './components/GpaGrowthGraph.jsx';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import './styles.css';
 
 const GRADES = [
@@ -665,6 +666,7 @@ function App() {
         </footer>
       </main>
       <Analytics />
+      <SpeedInsights />
     </>
   );
 }
