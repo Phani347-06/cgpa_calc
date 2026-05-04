@@ -799,3 +799,71 @@ button:hover {
     break-inside: avoid;
   }
 }
+
+/* SEO Content Section */
+.seo-content {
+  margin-top: 80px;
+  padding: 80px 0;
+  border-top: 1px solid var(--line);
+}
+
+.seo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 48px;
+}
+
+.seo-card h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.seo-card p, 
+.seo-card li {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.seo-card ul {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.formula-box {
+  background: var(--surface-muted);
+  padding: 20px;
+  border-radius: 16px;
+  margin-bottom: 24px;
+  border: 1px solid var(--line);
+  display: flex;
+  justify-content: center;
+}
+
+.formula-box code {
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, menlo, monaco, consolas, monospace;
+  font-size: 1.05rem;
+  color: var(--blue);
+  font-weight: 600;
+  text-align: center;
+}
+
+.seo-card .note {
+  font-size: 0.9rem;
+  font-style: italic;
+  margin-top: -8px;
+}
+
+@media (max-width: 1024px) {
+  .seo-content {
+    padding: 60px 20px;
+  }
+  
+  .seo-grid {
+    gap: 32px;
+  }
+}

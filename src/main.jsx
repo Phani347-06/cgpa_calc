@@ -656,6 +656,8 @@ function App() {
           <CgpaPredictor cgpaSummary={cgpaSummary} />
         </section>
 
+        <SEOSection />
+
         <footer className="formula-note">
           <span>Built for JNTUH students.</span>
           <span>Credit and formula based on R22 / R18 / R16 norms.</span>
@@ -664,6 +666,52 @@ function App() {
       </main>
       <Analytics />
     </>
+  );
+}
+
+function SEOSection() {
+  return (
+    <section className="seo-content">
+      <div className="seo-grid">
+        <article className="seo-card">
+          <h2>How to Calculate JNTUH SGPA?</h2>
+          <p>
+            To calculate your SGPA (Semester Grade Point Average) for JNTUH, you need to multiply the grade points obtained in each subject by the credits assigned to that subject. Sum these values for all subjects and divide by the total number of credits for the semester.
+          </p>
+          <div className="formula-box">
+            <code>SGPA = Σ(Credits × Grade Points) / Σ(Credits)</code>
+          </div>
+        </article>
+
+        <article className="seo-card">
+          <h2>Converting CGPA to Percentage</h2>
+          <p>
+            As per the latest JNTUH R22, R18, and R16 regulations, the formula to convert your CGPA to an equivalent percentage is:
+          </p>
+          <div className="formula-box">
+            <code>Percentage (%) = (CGPA - 0.5) × 10</code>
+          </div>
+          <p className="note">Note: This formula is valid for CGPA ≥ 0.5.</p>
+        </article>
+
+        <article className="seo-card">
+          <h2>R22, R18, and R16 Compatibility</h2>
+          <p>
+            While the basic calculation remains the same, each regulation (R22, R18, R16) has different total credit requirements and grading scales. Our calculator is designed to be compatible with all major JNTUH B.Tech regulations, ensuring accuracy for students across different batches.
+          </p>
+        </article>
+
+        <article className="seo-card">
+          <h2>Why use this JNTUH CGPA Calculator?</h2>
+          <ul>
+            <li><strong>Accuracy:</strong> Built specifically for JNTUH students based on university norms.</li>
+            <li><strong>Persistence:</strong> Your data is saved locally on your device for future reference.</li>
+            <li><strong>Growth Graph:</strong> Visualize your academic progress across semesters.</li>
+            <li><strong>Predictor:</strong> Estimate your future CGPA with our built-in tool.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
   );
 }
 
