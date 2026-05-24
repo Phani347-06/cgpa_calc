@@ -106,7 +106,7 @@ const calculateSemester = (subjects) => {
         credits: acc.credits + credits,
         weightedPoints: acc.weightedPoints + credits * gradePointFor(subject.grade),
         invalidSubjects:
-          acc.invalidSubjects + (subject.name.trim() === '' || credits <= 0 ? 1 : 0),
+          acc.invalidSubjects + (credits <= 0 ? 1 : 0),
       };
     },
     { credits: 0, weightedPoints: 0, invalidSubjects: 0 },
@@ -259,6 +259,14 @@ function App() {
     readHistory(userId).then(setHistory);
   }, [userId]);
 
+  useEffect(() => {
+    if (!status) return;
+    const timer = setTimeout(() => {
+      setStatus("");
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [status]);
+
   const semesterResults = useMemo(
     () =>
       semesters.map((semester) => ({
@@ -274,7 +282,7 @@ function App() {
     const validSemesters = semesterResults.filter((semester) => semester.result.credits > 0);
     const totalCredits = validSemesters.reduce((sum, semester) => sum + semester.result.credits, 0);
     const totalWeightedPoints = validSemesters.reduce(
-      (sum, semester) => sum + semester.result.sgpa * semester.result.credits,
+      (sum, semester) => sum + semester.result.weightedPoints,
       0,
     );
     const cgpa = totalCredits > 0 ? totalWeightedPoints / totalCredits : 0;
@@ -348,7 +356,7 @@ function App() {
 
   const saveSnapshot = async () => {
     if (cgpaSummary.totalCredits <= 0 || activeSemester.result.invalidSubjects > 0) {
-      setStatus('Add valid subject names and credits before saving.');
+      setStatus('Add valid credits before saving.');
       return;
     }
 
@@ -473,9 +481,16 @@ function App() {
                   <span>Semester label</span>
                   <input value={activeSemester?.label || ''} onChange={(event) => renameSemester(event.target.value)} />
                 </label>
-                <button className="ghost-button reset-button" type="button" onClick={resetCalculator}>
-                  Reset
-                </button>
+                <div style={{ display: "flex", gap: "8px" }}>
+                  {semesters.length > 1 && (
+                    <button className="ghost-button" type="button" onClick={removeSemester} style={{ color: "var(--danger)", borderColor: "var(--danger)" }}>
+                      Delete
+                    </button>
+                  )}
+                  <button className="ghost-button reset-button" type="button" onClick={resetCalculator}>
+                    Reset
+                  </button>
+                </div>
               </div>
 
               <div className="subject-head">
@@ -534,8 +549,11 @@ function App() {
                         aria-label={`Remove ${subject.name || `subject ${index + 1}`}`}
                         onClick={() => removeSubject(subject.id)}
                         disabled={activeSubjects.length === 1}
+                        title="Remove subject"
                       >
-                        trash
+                        <svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16">
+                          <path d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12Z" fill="currentColor"/>
+                        </svg>
                       </button>
                     </div>
                   );
