@@ -391,6 +391,24 @@ function App() {
     setStatus('History item deleted.');
   };
 
+  const handleShare = async () => {
+    const shareData = {
+      title: "JNTUH SGPA & CGPA Calculator",
+      text: "Check out this fast, free JNTUH SGPA & CGPA Calculator! R22, R18, and R16 compatible.",
+      url: window.location.href,
+    };
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(`${shareData.text} ${shareData.url}`);
+        setStatus("Link copied to clipboard!");
+      }
+    } catch (err) {
+      console.error("Error sharing", err);
+    }
+  };
+
   const activeSubjects = activeSemester?.subjects || [];
   const activeResult = activeSemester?.result || { sgpa: 0, credits: 0, weightedPoints: 0 };
 
@@ -573,6 +591,7 @@ function App() {
               weightedPoints={activeResult.weightedPoints}
               onSave={saveSnapshot}
               status={status}
+              onShare={handleShare}
             />
           </section>
         )}
@@ -618,6 +637,7 @@ function App() {
               percentage={cgpaSummary.percentage}
               onSave={saveSnapshot}
               status={status}
+              onShare={handleShare}
             />
           </section>
         )}
@@ -735,7 +755,7 @@ function SEOSection() {
   );
 }
 
-function ResultCard({ label, value, badge, credits, weightedPoints, percentage, onSave, status }) {
+function ResultCard({ label, value, badge, credits, weightedPoints, percentage, onSave, status, onShare }) {
   return (
     <aside className="panel result-card">
       <div className="result-kicker">
@@ -766,9 +786,14 @@ function ResultCard({ label, value, badge, credits, weightedPoints, percentage, 
       <button className="primary-button full" type="button" onClick={onSave}>
         Save to History
       </button>
-      <button className="ghost-button full" type="button" onClick={() => window.print()}>
-        Export as PDF
-      </button>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
+        <button className="ghost-button full" type="button" onClick={() => window.print()}>
+          Print
+        </button>
+        <button className="ghost-button full" type="button" onClick={onShare}>
+          Share
+        </button>
+      </div>
       {status && <p className="status">{status}</p>}
     </aside>
   );
