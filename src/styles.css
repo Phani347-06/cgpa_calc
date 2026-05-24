@@ -370,17 +370,16 @@ h2 {
 .remove-button {
   width: 28px;
   height: 46px;
-  overflow: hidden;
   border: 0;
   background: transparent;
   color: var(--muted);
-  font-size: 0;
+  display: grid;
+  place-items: center;
+  transition: color 0.16s ease;
 }
 
-.remove-button::before {
-  content: "x";
-  font-size: 1rem;
-  font-weight: 900;
+.remove-button:hover:not(:disabled) {
+  color: var(--danger);
 }
 
 .primary-button,
